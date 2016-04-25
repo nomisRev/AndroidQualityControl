@@ -1,0 +1,41 @@
+apply plugin: 'pmd'
+
+check.dependsOn 'pmd'
+
+task pmd(type: Pmd) {
+
+//  group 'Verification tasks' - Already added to app:check by check.dependsOn 'findbugs'
+    description "Generate PMD reports for this build"
+
+    ignoreFailures true
+
+    ruleSets = [
+        "java-basic",
+        "java-braces",
+        // "naming",
+        "java-android",
+        //   "codesize",
+        //   "controversial",
+        "java-design",
+        //   "finalizers",
+        //   "imports",
+        //   "javabeans",
+        "java-junit",
+        //   "migrating",
+        //   "optimizations",
+        //   "strictexception",
+        "java-strings",
+        "java-unusedcode"
+    ]
+
+    source 'src'
+    include '**/*.java'
+    include '**/*.kt'
+    exclude '**/gen/**'
+
+    //reports pmd should output
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}

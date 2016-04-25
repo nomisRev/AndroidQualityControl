@@ -1,0 +1,39 @@
+<FindBugsFilter>
+
+    <Match>
+        <Class name="~.*R\$.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*\$ViewInjector*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*\$ViewBinder*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.BuildConfig.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*Manifest\$.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*\$Lambda\$*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*Module.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*Dagger*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*MembersInjector*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*_Provide*Factory*.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*_Factory.*"/>
+    </Match>
+    <!--<Match>-->
+        <!--<Class name="~.*\$*\$*.*"/>-->
+    <!--</Match>-->
+</FindBugsFilter>

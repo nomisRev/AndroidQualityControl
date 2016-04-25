@@ -1,0 +1,32 @@
+apply plugin: 'findbugs'
+
+check.dependsOn 'findbugs'
+task findbugs(type: FindBugs) {
+
+    //  group 'Verification tasks' - Already added to app:check by check.dependsOn 'findbugs'
+    description 'Generate FindBugs reports for this build'
+
+    ignoreFailures true
+
+    effort = 'max'
+    reportLevel = 'high'
+
+    classes = fileTree("${project.rootDir}/app/build/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    include '**/*.kt'
+    exclude '**/gen/**'
+
+    excludeFilter = file("${rootProject.projectDir}/gradle/config/findbugs/exclude.xml")
+
+    reports {
+        xml.enabled = true
+        html.enabled = false
+        xml.destination = "$project.buildDir/reports/findbugs/findbugs-output.xml"
+        html.destination = "$project.buildDir/reports/findbugs/findbugs-output.html"
+    }
+
+    classpath = files()
+}
+
