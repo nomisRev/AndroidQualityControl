@@ -69,7 +69,7 @@ check.dependsOn 'findbugs'
 
 task findbugs(type: FindBugs) {
 
-    description 'Generate FindBugs reports for this build'     //Add description to task
+    description 'Generate FindBugs reports for this build'
 
     ignoreFailures true
 
