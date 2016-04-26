@@ -10,6 +10,10 @@ In other words, it is a tool that is going to analyse our code and point out bug
 You can expect it to point out unused code, redudant code, unchecked potetional NPE's etc
 
 ## PMD
+* PMD is a source code analyser. That means it analyses your source code to find missing curly braces, redundant null check, long parameter list, unnecessary constructor, missing break in switch, etc. What it should report is configureable, more about this below.
+* PMD includes CPD (copy-paste-detector) which detects duplicated code.
+
+
 
 
 
@@ -18,3 +22,9 @@ You can expect it to point out unused code, redudant code, unchecked potetional 
 
 
 ## Checkstyle
+
+## Source
+* https://pmd.github.io/
+* http://findbugs.sourceforge.net/
+* http://checkstyle.sourceforge.net/
+* 
