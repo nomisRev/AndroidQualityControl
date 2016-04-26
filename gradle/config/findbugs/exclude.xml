@@ -33,7 +33,7 @@
     <Match>
         <Class name="~.*_Factory.*"/>
     </Match>
-    <!--<Match>-->
-        <!--<Class name="~.*\$*\$*.*"/>-->
-    <!--</Match>-->
+    <Match>
+        <Class name="~.*\$*\$*.*"/>
+    </Match>
 </FindBugsFilter>

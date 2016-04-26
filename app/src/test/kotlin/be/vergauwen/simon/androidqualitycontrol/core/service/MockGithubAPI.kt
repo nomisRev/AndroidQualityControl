@@ -5,8 +5,16 @@ import rx.Observable
 
 class MockGithubAPI() : GithubAPI {
 
-  val repos = listOf(GitHubRepo("test", "www.test.com", "test_desc"))
+  val repos : List<GitHubRepo>
   var throwError = false
+
+  init{
+    val githubRepo = GitHubRepo()
+    githubRepo.name = "test"
+    githubRepo.url = "www.test.com"
+    githubRepo.description = "test_desc"
+    repos = listOf(githubRepo)
+  }
 
   override fun getRepos(): Observable<List<GitHubRepo>> {
     return if (throwError) Observable.error(Exception("exception")) else Observable.just(repos)

@@ -1,16 +1,20 @@
 apply plugin: 'checkstyle'
 
+//adds script to 'check' task
 check.dependsOn 'checkstyle'
 
+//Create new gradle task checkstyle
 task checkstyle(type: Checkstyle) {
 
-//  group 'Verification tasks' - Already added to app:check by check.dependsOn 'findbugs'
-    description "Generate Checkstyle reports for this build"
+//  group 'Verification tasks' - Already added to app:check by check.dependsOn 'checkstyle'
+    description "Generate Checkstyle reports for this build"     //Add description to task
 
-    ignoreFailures true
+    ignoreFailures true //if false build will fail when checkstyle warning is detected!! (Ultra strict)
 
+    //Config file for checkstyle
     configFile file("${rootProject.projectDir}/gradle/config/checkstyle/checkstyle.xml")
 
+    //Add source that should be checked by checkstyle
     source 'src'
     include '**/*.java'
     include '**/*.kt'
@@ -22,5 +26,5 @@ task checkstyle(type: Checkstyle) {
         html.enabled = true
     }
 
-    classpath = files()
+   classpath = files(file("${project.rootDir}/app/build/intermediates/classes"))
 }

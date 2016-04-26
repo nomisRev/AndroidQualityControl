@@ -42,9 +42,9 @@ android {
             versionName "1.0-paid"
         }
     }
-    lintOptions {
-        abortOnError false
-    }
+
+    lintOptions { abortOnError false }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
@@ -55,9 +55,7 @@ android {
     } 
 }
 
-kapt {
-    generateStubs = true
-}
+kapt { generateStubs = true }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

@@ -1,28 +1,39 @@
 apply plugin: 'findbugs'
 
+//adds script to 'check' task
 check.dependsOn 'findbugs'
+
+//Create new gradle task findbugs
 task findbugs(type: FindBugs) {
 
     //  group 'Verification tasks' - Already added to app:check by check.dependsOn 'findbugs'
-    description 'Generate FindBugs reports for this build'
+    description 'Generate FindBugs reports for this build'     //Add description to task
 
+    //if false build will fail when checkstyle warning is detected!! (Ultra strict)
+    // same as lintOptions { abortOnError false }
     ignoreFailures true
 
+    //Higher levels increase precision and find more bugs at the expense of running time and memory consumption.
     effort = 'max'
-    reportLevel = 'high'
+    //The priority threshold for reporting bugs. If set to {@code low}, all bugs are reported.
+    reportLevel = 'low'
 
+    //Define path to classes
     classes = fileTree("${project.rootDir}/app/build/intermediates/classes")
 
+    //Add source that should be checked by findbugs
     source 'src'
     include '**/*.java'
-    include '**/*.kt'
     exclude '**/gen/**'
 
+    //Define exclude config file
     excludeFilter = file("${rootProject.projectDir}/gradle/config/findbugs/exclude.xml")
 
+
+    //IMPORTANT: FINDBUGS CAN ONLY GENERATE 1 REPORT. XML OR HTML!! AND PATH MUST BE DEFINED!!
     reports {
-        xml.enabled = true
-        html.enabled = false
+        xml.enabled = false
+        html.enabled = true
         xml.destination = "$project.buildDir/reports/findbugs/findbugs-output.xml"
         html.destination = "$project.buildDir/reports/findbugs/findbugs-output.html"
     }
