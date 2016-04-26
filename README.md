@@ -107,6 +107,33 @@ task findbugs(type: FindBugs) {
 ## Checkstyle
 * Checkstyle is a development tool to help programmers write Java code that adheres to a coding standard. Eventhough this might seem minor, adhering the same code style throughout a project can drastically increase readability and thus the quality of your code.
 
+* Checkstyle is something that takes a while to setup. You need to think about the codestyle you and the team you're in want to honor. And when setting deciding on codestyle conventions, it's easily to overlook certain situations. Luckily Checkstyle has a very good documentation, and it's highly configureable. For more information <a href="">http://checkstyle.sourceforge.net/checks.html</a>, an example of a config file can be found in this repo.
+
+```
+apply plugin: 'checkstyle'
+
+check.dependsOn 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+
+    description "Generate Checkstyle reports for this build"     //Add description to task
+
+    ignoreFailures true 
+
+    configFile file("${rootProject.projectDir}/gradle/config/checkstyle/checkstyle.xml")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**', '**/test/**'
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+   classpath = files(file("${project.rootDir}/app/build/intermediates/classes"))
+}
+```
 
 ## Source
 * https://pmd.github.io/
