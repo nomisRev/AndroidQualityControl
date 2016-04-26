@@ -13,8 +13,47 @@ You can expect it to point out unused code, redudant code, unchecked potetional 
 * PMD is a source code analyser. That means it analyses your source code to find missing curly braces, redundant null check, long parameter list, unnecessary constructor, missing break in switch, etc. What it should report is configureable, more about this below.
 * PMD includes CPD (copy-paste-detector) which detects duplicated code.
 
+* Setting up PMD is relatively easy. The most important step here is to decide what you want PMD to check, and depending on these decisions you should setup your configuration.
+* The documentation can be rather tedious, and unhelpfull to setup the PMD configuration in gradle. This is a list of the possible <a href="https://github.com/pmd/pmd/tree/83bb14e28e576eafa780bc0f6982b1a78b823c60/pmd/src/main/resources/rulesets/java">Ruleset</a> you can specify that PMD should analyse, the files linked here hold some documentation of what they do. More information can be found here <a href="http://pmd.sourceforge.net/pmd-4.3.0/rules/index.html">PMD Rules</a>. **Don't forget that in Gradle, the rules must be prefixed with the language. So in our case the ruleset resides in the java folde. So prefix with `java-`**
 
+* Combining these sources you should be able to figure out what configuration suits your project, and your setup might look something like this.
 
+```
+apply plugin: 'pmd'
+
+check.dependsOn 'pmd'
+
+task pmd(type: Pmd) {
+
+    description "Generate PMD reports for this build"
+
+    ignoreFailures true    // Ignores failing build on warning. If not set build will fail on warning.
+
+    ruleSets = [
+        "java-basic",
+        "java-braces",
+        "java-naming",
+        "java-android",
+        "java-codesize",
+        "java-design",
+        "java-finalizers",
+        "java-junit",
+        "java-optimizations",
+        "java-strictexception",
+        "java-strings",
+        "java-unusedcode"
+    ]
+
+    source 'src'          // Specify the source code. The script should be applied to
+    include '**/*.java'   // the module build.gradle so the 'src' folder resides at the same level
+    exclude '**/gen/**'   // include / exclude folders and files.
+    
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+```
 
 
 ## FindBugs
@@ -34,3 +73,4 @@ You can expect it to point out unused code, redudant code, unchecked potetional 
 * https://docs.gradle.org/current/userguide/findbugs_plugin.html
 * https://docs.gradle.org/current/userguide/pmd_plugin.html
 * https://docs.gradle.org/current/userguide/checkstyle_plugin.html
+* http://stackoverflow.com/questions/20710704/gradles-pmd-plugin-what-are-acceptable-arguments
